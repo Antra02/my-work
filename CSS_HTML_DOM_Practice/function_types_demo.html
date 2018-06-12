@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Function_types_Demo</title>
+	</head>
+
+	<body>
+
+		<script>
+			function showSum(){
+				var a = 100;
+				var b = 200;
+				alert (a+b);
+			}
+            var funcExpr = function (a, b) {
+				alert (a+b);
+            }
+			function showDiff(){
+				var a = 250;
+				var b = 200;
+				return (a-b);
+			}
+			function doProcess(a, b, doLater) {
+				alert("The sum is:" +(a + b).toString());
+				doLater(a, a+b);
+			}
+			function showMultiplication(p, q) {
+				alert("The product is: " +(p * q).toString());
+			}
+		</script>
+
+		<input type="button" value="Show Sum of 100 & 200" onclick="showSum()"/>
+		<input type="button" value="Show Sum of 10 & 20" onclick="funcExpr(10, 20)"/>
+		<input type="button" value="Show difference of 250 & 200" onclick="alert(showDiff())"/>
+		<input type="button" value="callBack btn for SUM" onclick="doProcess(2, 6, funcExpr)" />
+		<input type="button" value="callBack btn for MULTIPLICATION" onclick="doProcess(2, 6, showMultiplication)" />
+
+	</body>
+
+</html>

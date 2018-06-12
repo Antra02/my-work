@@ -1,0 +1,25 @@
+
+    .button {
+        cursor: pointer;
+        color: white;
+    }
+
+    .btn.outline {
+        background: none;
+        padding: 12 px 22 px;
+    }
+
+    .btn - primary.outline {
+        border: 2 px solid  #FFFFFF;
+        color:  #FFFFFF;
+    }
+
+    td, th {
+        border: 1 px solid gray;
+        text - align: center;
+    }
+
+    p {
+        font - size: 200;
+    }
+

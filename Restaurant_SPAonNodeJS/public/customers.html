@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<form name="myForm" action="/addContact" method="POST">
+		<input type="text" name="firstname" placeholder="Enter First Name" size= "40"><br/>
+		<input type="text" name="lastname" placeholder="Enter Last Name" size= "40"><br/>
+	    <input type="text" name="email" placeholder="Enter Email address" size= "40"><br/>
+	    <input type="text" name="mobile" placeholder="Enter Mobile number" maxlength="10">		    
+	    <br/> <br/>
+		<input type="button" value="Submit" onclick="submitMyForm()">
+		<input type="hidden" name="id"/>
+	</form>
+</body>
+</html>

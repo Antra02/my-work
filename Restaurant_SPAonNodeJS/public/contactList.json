@@ -1,0 +1,17 @@
+{
+	"Contact 1": [
+		{"Name":"Antra", "email":"dfgh@gdfgh.com"}, 
+		{"Name":"Poha", "email":"2.5"},
+		{"Name":"Aalu Paratha", "email":"5"}
+	],
+
+	"Contact 2": [
+		{"Name":"Biryani", "email":"13"},
+		{"Name":"Fried rice", "email":"9"}
+	],
+
+	"Contact 3": [
+		{"Name":"Paratha", "email":"5"},
+		{"Name":"No dinner", "email":"0"}
+	]
+}

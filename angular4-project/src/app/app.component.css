@@ -1,0 +1,21 @@
+div {
+	height: 80px;
+	display: inline-block;
+
+
+
+  margin: 20px;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+input {
+	display: block;
+}
+
+#creditCardDetails {
+	color:red;
+	background-color: yellow;
+}

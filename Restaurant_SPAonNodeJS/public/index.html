@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+	<title>Full Page Website turned into SPA</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="mainStyles.css"> <!-- rel is imp, type can be ignored --> 
+ 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+ 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+ 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dustjs-linkedin/2.7.5/dust-core.js"></script>
+ 	<script type="text/javascript" src="js/menu.js"></script>
+
+	<script>
+		function loadPage(url, callbackHandler) {
+			var xhr;
+			xhr = new XMLHttpRequest(); // created XMLHttpRequest object
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState==4 && xhr.status==200) {
+					var textData = xhr.responseText;
+					console.log(textData);
+					// Below -  either callbackHandler & callbackHandler as a 2nd param in loadPage() OR the line 16 with window
+					callbackHandler(textData);
+				}
+			}
+			xhr.open("GET", url, true);
+			xhr.send();
+		}
+		/*function loadPage(url, callbackHandler) {
+			$.get(url, callbackHandler);*/
+			
+			
+		/*} 
+		$(document).ready(function() {
+    	  $('a[href="#menu"]').click(function() {
+             loadPage('/menu', displayJsonMenu);
+    	  });
+		});*/
+		
+		
+
+		function postData(url, textData, callbackHandler) {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+				    var textData = xhr.responseText;
+				    console.log(textData);
+				    callbackHandler(textData);
+				}
+			};    
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			console.log(JSON.stringify(textData));
+			xhr.send(JSON.stringify(textData));
+		}
+		/*function postData(url, textData, callbackHandler) {
+			$.post(url, textData, callbackHandler);
+		}*/
+
+		function displayResponse(textData) {
+			window.document.getElementById('mainContent').innerHTML = textData;
+		}
+		function displayJsonMenu(textData) {
+			var jsonData = JSON.parse(textData);
+
+			dust.render('menu', jsonData, function(err, myHtml) {
+				console.log(err);
+				console.log(myHtml);
+				document.getElementById('mainContent').innerHTML = myHtml;
+
+			})
+		}
+		function displayJsonLocation(textData) {
+			var jsonData = JSON.parse(textData);
+			var htmlCode = "<div>";
+			for (let key in jsonData) {
+				if(jsonData.hasOwnProperty(key)) {
+					htmlCode += createLocationForOne(jsonData[key], key);
+				}
+			}
+			htmlCode += "</div>";
+			window.document.getElementById('mainContent').innerHTML = htmlCode;
+		}
+		function createLocationForOne(locationList, heading) {
+			var htmlForOne = "<div> <p>" +heading+ "</p>";
+			htmlForOne += "<ul>";
+			for (let i=0; i<locationList.length; i++) {
+				htmlForOne += "<li>" +locationList[i].AddressLine+ " - " +locationList[i].Building+ "</li>";
+			}
+			htmlForOne += "</ul> </div>";
+			return htmlForOne;
+		}
+		function displayJsonContact(textData) {
+			var jsonData = JSON.parse(textData);
+			var htmlCode = "<div>";
+			for (let key in jsonData) {
+				if(jsonData.hasOwnProperty(key)){
+					htmlCode += createContactForOne(jsonData[key], key);
+				}
+			}
+			htmlCode += "</div>";
+			window.document.getElementById('mainContent').innerHTML = htmlCode;
+			
+		}
+		function createContactForOne(contactList, heading) {
+			var htmlForOne = "<div> <p>" +heading+ "</p>";
+			htmlForOne += "<ul>";
+			for (let i=0; i<contactList.length; i++) {
+				htmlForOne += "<li>" +contactList[i].Mobile+ " - " +contactList[i].email+ "</li>";
+			}
+			htmlForOne += "</ul> </div>";
+			return htmlForOne;
+		}
+
+		function displayJsonCustomerList(textData) {
+			var jsonData = JSON.parse(textData);
+			console.log(jsonData);
+			var htmlCode = "<div>";
+			htmlCode += "<p><a href='#' id='addContact' onclick='loadPage(\"customers.html\", displayResponse)' style='float:left;'>Add More Contact</a></p><br/><br/>";
+
+			for (let key in jsonData) {
+				if(jsonData.hasOwnProperty(key)) {
+					htmlCode += createEachCustomerList(jsonData[key], key);
+				}
+			}
+			htmlCode += "</div>";
+			window.document.getElementById('mainContent').innerHTML = htmlCode;
+		}
+		function createEachCustomerList(eachCustomerList, heading) { // add edit/delete buttons in the loop
+			var htmlForOne = "<div> <p>" +heading+ "</p>";
+			htmlForOne += "<ul>";
+			for (let i=0; i<eachCustomerList.length; i++) {
+				var deleteIdObj = {id: eachCustomerList[i].id};
+				htmlForOne += "<li>" +eachCustomerList[i].firstname+ " - " +eachCustomerList[i].lastname+ " - " +eachCustomerList[i].email+ " - " +eachCustomerList[i].mobile+ "<input type='button' value='Edit' onclick='editContact("+eachCustomerList[i].id+")'/><input type='button' value='Delete' onclick='postData(\"/deleteContact\"," + JSON.stringify(deleteIdObj) + ", displayJsonCustomerList);' /></li>" ;
+			}
+			htmlForOne += "</ul> </div>";
+			return htmlForOne;
+		}
+		function editContact(id) {
+			loadPage('/customers.html', displayResponse);
+			var url="/getContact?id="+id;
+			loadPage(url, fillData);
+		}
+		function fillData(data) {
+			console.log(" data in fillData= "+ data);
+			var parsedData = JSON.parse(data);
+			console.log(parsedData.firstname);
+			document.forms['myForm'].firstname.value = parsedData.firstname;
+			document.forms['myForm'].lastname.value = parsedData.lastname;
+			document.forms['myForm'].email.value = parsedData.email;
+			document.forms['myForm'].mobile.value = parsedData.mobile;
+			document.forms['myForm'].id.value = parsedData.id;
+			console.log(parsedData.firstname, typeof parsedData.firstname);
+		}
+		function submitMyForm(){
+			var record = {};
+			record.firstname = document.forms['myForm'].firstname.value;
+			record.lastname = document.forms['myForm'].lastname.value;
+			record.email = document.forms['myForm'].email.value;
+			record.mobile = document.forms['myForm'].mobile.value;
+			record.id = document.forms['myForm'].id.value;
+			if (record.id != '') {
+       			postData('/updateContact', record, displayJsonCustomerList);
+			} else {
+       			postData('/addContact', record, displayJsonCustomerList);
+			} 
+		}
+		function myFunction() {
+		    var x = document.getElementById("myNavBarID");
+		    if (x.className === "myNavBar") {
+		        x.className += " responsive";
+		    } else {
+		        x.className = "myNavBar";
+		    }
+		}
+		$(document).ready(function() {
+    	  $("a").click(function() {
+            $("a").removeClass("active");
+            $(this).addClass("active");
+    	  });
+		});
+	</script>
+</head>
+<body>
+	<div class="top">	
+		<nav class="myNavBar" id="myNavBarID">
+			<ul>
+				<li>
+					<a href="#home" onclick="loadPage('home.html',displayResponse);">Home</a>
+				</li>
+				<li>
+					<a href="#menu" onclick="loadPage('/menu', displayJsonMenu);">Menu</a>
+				</li>
+				 <li>
+					<a href="#locations" onclick="loadPage('locations.html',displayJsonLocation);">Locations</a>
+				</li>
+				<li>
+					<a href="#contactUs" onclick="loadPage('contactUs.html',displayJsonContact);">Contact Us</a>
+				</li>
+				<li>
+          			<a href="#contactList" onclick="loadPage('/contactsList',displayJsonCustomerList);">Customers</a>
+       		 	</li>
+				<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    				<i class="fa fa-bars"></i>
+  				</a>
+			</ul>
+		</nav>
+		
+		<div id="mainContent">
+			<p>Welcome to our Restaurant!!!</p>
+			<img src="./images/party-1206687_960_720.jpg">
+		</div>
+
+		
+	</div>
+	<footer>Copyright@2018, All Rights Reserved</footer>
+</body>
+</html>

@@ -1,0 +1,75 @@
+body {
+  color: #032f3e;
+}
+
+.section h1 {
+  font-size: 24px;
+}
+
+.myDiv {
+  width: 100%;
+  position: relative;
+}
+
+.myDiv .commonDivClassInMoreThanOnePlace {
+  top: 50px;
+}
+
+.myDiv img {
+  width: 100%;
+}
+
+.myDiv p {
+  color: #032f3e;
+}
+
+rule {
+  color: black;
+}
+
+rule a {
+  color: blue;
+}
+
+rule a div1 {
+  float: left;
+  color: green;
+}
+
+rule a div1 div2:after {
+  content: "";
+  clear: both;
+}
+
+.mainDiv {
+  width: 200px;
+}
+
+.mainDiv ul {
+  width: 100px;
+}
+
+.mainDiv ul:after {
+  content: "";
+  clear: both;
+}
+
+.mainDiv li {
+  float: left;
+}
+
+.mainDiv a {
+  text-decoration: none;
+}
+
+.mainDiv a:hover {
+  background-color: red;
+}
+
+.first, .second {
+  color: green;
+}
+
+.second {
+  background-color: black;
+}

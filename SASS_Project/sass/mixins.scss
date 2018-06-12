@@ -1,0 +1,26 @@
+// Mixins
+
+@mixin myMixin{
+	width:100%;
+	position:relative;
+	.commonDivClassInMoreThanOnePlace{
+	top:50px;
+	}
+	img{
+	width:100%;
+	}
+	p{
+	color:$deepBlue;
+	}
+}
+
+.myDiv{
+	@include myMixin; //import your mixin
+}
+
+@mixin clearFix{
+	&:after{
+	content:"";
+	clear:both;
+	}
+}

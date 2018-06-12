@@ -1,0 +1,18 @@
+<style>
+#outer >div, #outer > div:first-child a :not(:first-child){
+  color: red;
+  border:1px solid;
+}
+</style>
+
+<div id="outer">
+  <div id="firstParent">
+    <a>abc</a>
+    <a>def</a>
+    <a>hij</a>
+  </div>
+  <div id="secondParent">
+    <a>klm</a>
+    <a>opq</a>
+  </div>
+</div>

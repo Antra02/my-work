@@ -1,0 +1,71 @@
+<!-- Center, top, bottom etc aligned elements-->
+<!doctype html>
+<html>
+	<head>
+		<title>My aligned page</title>
+	</head>
+
+	<body>
+		<style>
+			#centeredDiv {
+				position: absolute;
+				height: 200px;
+				width: 400px;
+				border: 30px solid black;
+				margin: -100px 0 0 -200px;
+				padding: 20px;
+				top: 50%;
+				left: 50%;
+				box-sizing: border-box;
+				text-align: center;
+			}
+			#topLeftDiv {
+				position: absolute;
+				top: 0;
+				left: 0;
+				border: 2px solid red;
+			}
+			#topRightDiv {
+				position: absolute;
+				top: 0;
+				right: 0;
+				border: 2px solid red;
+			}
+			#bottomLeftDiv {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				border: 2px solid red;
+			}
+			#bottomRightDiv {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				border: 2px solid red;
+			}
+
+		</style>
+		<div style="width: 1200px; height: 1200px; border: 2px solid green">
+			<div id="centeredDiv">
+				<p>This is my centered Div </p>
+			</div>
+
+			<div id="topLeftDiv">
+				<p>This is my top Left Div </p>
+			</div>
+
+			<div id="topRightDiv">
+				<p>This is my top Right Div </p>
+			</div>
+
+			<div id="bottomLeftDiv">
+				<p>This is my bottom Left Div </p>
+			</div>
+
+			<div id="bottomRightDiv">
+				<p>This is my bottom Right Div </p>
+			</div>
+		</div>
+	</body>
+
+</html>

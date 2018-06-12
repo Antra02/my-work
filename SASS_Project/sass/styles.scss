@@ -1,0 +1,55 @@
+@import "variables";
+@import "mixins";
+@import "reset";
+
+// The Net Ninja - SASS #11 - @content - Good for Media Query stuffs
+
+//  Nesting
+
+rule{
+	color:black;
+	a{
+	  color:blue;
+	  div1{
+	    float:left;
+	    color:green;
+	    div2{
+	    @include clearFix;
+	    }
+
+	  }}}
+
+.mainDiv{
+	width:(100px * 2);	// MATH OPERATIONS:- * / + - ALSO POSSIBLE. Same as:- width:200px;
+	ul{	// width:(400px / 2); OR width:(198px + 2); OR width:(202px - 2); //width:(100%/<									TotalElementsOnANavBar>);
+	width:100px;		
+	&:after{	// Pseudo class (:after) must be preceded by '&' to get its effect
+	content:"";	// this :after block can be made as a mixin to re-use it
+	clear:both;
+	}
+	}
+	li{
+	float:left;
+	}
+	a{
+	text-decoration:none;
+	&:hover{		// Pseudo classes (:hover) must be preceded by '&' to get their effect
+	background-color:red;
+	}
+	}
+} // end of mainDiv
+
+// 1) Math Operation
+// 2) Color Functions of SASS. See its Doc online. Like for hover, u don't have to look for lighter or darker color. Simply, use:- background-color:lighten(red, 6); 	//the more the integer value is, the lighter it is & vice versa
+//lighten(color, integer);
+//complement(red); //This changes the color which is similar/complementary to the color provided as an arg(red, here)
+// 3) If statements
+// 4) The Net Ninja - SASS #11 - @content - Good for Media Query stuffs
+
+.first{
+	color:green;
+}
+.second{
+	background-color:black;
+	@extend .first;		//extend css of .first too
+}

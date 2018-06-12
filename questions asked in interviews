@@ -1,0 +1,29 @@
+function a() {
+  let a = 'test';
+    return function b() { 
+      alert(a); 
+      a = 'new test'
+    }
+}
+
+
+var func = a();
+func();    // PLEASE WRITE HERE : 
+var func2 = a();
+func2().;   // PLEASE WRITE HERE : 
+
+1. Closure
+2. Event Delegation 
+3. Event Bubbling 
+4. Stop Propogation
+5. PreventDefault
+6. ES6 destructuring 
+7. rest and spread 
+8. let vs var 
+9 array.map vs forEach 
+
+React 
+1. Function component and React component
+2. Lifecycle method of React component
+
+

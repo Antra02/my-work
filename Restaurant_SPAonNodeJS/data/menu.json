@@ -1,0 +1,17 @@
+{
+	"Breakfast": [
+		{"item":"Dosaaaa", "price":"3"}, 
+		{"item":"Poha", "price":"2.5"},
+		{"item":"Aalu Paratha", "price":"5"}
+	],
+
+	"Lunch": [
+		{"item":"Biryani", "price":"13"},
+		{"item":"Fried rice", "price":"9"}
+	],
+
+	"Dinner": [
+		{"item":"Paratha", "price":"5"},
+		{"item":"No dinner", "price":"0"}
+	]
+}

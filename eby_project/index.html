@@ -1,0 +1,46 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/48938155eb24b4ccdde09426066869504c6dab3c/dist/css/bootstrap.min.css">
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src=script.js></script>
+  </head>
+  <body>
+     <div>
+        <div id="question_area">
+            <h1>Question:</h1>
+            <form action="">  
+              <script>
+                for (let questionIndex=0; questionIndex<questions.length; questionIndex++) {
+                    document.write("<br/> <label id=\"questionText" +questionIndex+ "\">" + questions[questionIndex].text + "</label> <br/>");
+                    for (var eachAnswer in questions[questionIndex].answers) {
+                        document.write('<input type="radio" class="answers" value='+questions[questionIndex].answers[eachAnswer].text+'> ' + questions[questionIndex].answers[eachAnswer].text + '<br/>');
+                    }
+                    document.write("<br/><input type=\"submit\" onClick=\"submitAnswer(" + questionIndex + ")\" value=\"SUBMIT\" /><br/>");
+                }
+
+                function submitAnswer(questionIndex) {
+                 var val = document.querySelectorAll('[id="questionText"'+questionIndex+'"]');       //('[id="questionText"'+questionIndex+'"]');
+                 val.forEach(function(elem) {
+                      console.log(elem);
+                      console.log("gdhfjgkfg");
+
+                 });
+              //    var val = document.querySelector('input[class="answers"]:checked').value;
+                  //if (val.length)
+                    console.log (`You selected: ${val}`); //val
+                }
+              </script>
+          </form>
+            
+            <pre id="answer1"></pre>
+         </div> 
+
+        <div class="answer"></div>
+     </div>
+  </body>
+ <!--  <script src="/bundle.js"></script> -->
+</html>

@@ -1,0 +1,275 @@
+
+<!--
+    The index.html is created that will load the controller into the user’s web browser.
+    It displays all the users from the server.
+    It also diplays user’s profile, posts, comments, albums, photos, and TODOS that is fethced by using HTTP GET from the controller in the script.js file
+-->
+<!doctype html>
+<html>
+<head>
+    <title>
+        AngularJS - REST Demo
+    </title>
+
+    <!-- Load AngularJS and UI Bootstrap-->
+    <!-- Include the script file and the custome css file-->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.1.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+
+    <script type="text/javascript"></script>
+
+</head>
+
+<body ng-app="myApp" ng-controller="userController">
+
+    <div>
+        <!-- Heading -->
+        <div>
+            <div align="center">
+                <h2>
+                    AngularJS - REST - DEMO
+                </h2>
+
+            </div>
+        </div>
+
+        <!--  Display All Users using ng-options and ng-model directive -->
+        <div class="row" align="center">
+
+            <div class="col-md-2" " align = "left ">
+
+                <div > 
+
+                    <div class="container " align="left " style="width: 100% ">
+
+                        <div style="width: 100% "> 
+
+                           <button  class="btn btn-primary btn-sm " style= "background-color:rgb(150, 150, 150); width: 100% " > Select A User </button>
+                           <select  ng-model = "selecteduser " ng-options="user as user.name for user in users "> {{user.name }} 
+                            // select as label for value in array
+                            //For ng-options concept:-  https://www.undefinednull.com/2014/08/11/a-brief-walk-through-of-the-ng-options-in-angularjs/
+
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--  Display tabs for selecting different actions -->
+            <div class= "col-md-8 " >
+
+                    <div align="center " >
+                        <tabset style="width: 100% ">
+
+                                <button class="btn btn-primary btn-sm" style= "background-color:rgb(150, 150, 150)" ng-click="userSelect(selecteduser, 1) "> Select Profile </button>
+
+                                <button class="btn btn-primary btn-sm " style= "background-color:rgb(150, 150, 150)" ng-click="postSelect(selecteduser, 2) " >Select Post </button> 
+
+                                <button  class="btn btn-primary btn-sm " style= "background-color:rgb(150, 150, 150)" ng-click="albumSelect(selecteduser, 4) " >Select Album </button> 
+
+                                <button class="btn btn-primary btn-sm " style= "background-color:rgb(150, 150, 150)" ng-click="tODOSSelect(selecteduser, 6) " >Select TODOS</button> 
+                        </tabset>
+                     </div>
+
+                    <!-- Display Selected User Profile -->
+                    <div class="panel panel-default "  ng-show = "isTab(1) " > 
+
+                        <table class="table table-striped table-bordered ">
+                            <tr>
+                                Selected User Profile
+                            </tr>
+                            <tr>
+                                <th>name</th>
+                                <th>username</th>
+                                <th>email</th>
+                                <th>address</th>
+                                <th>phone</th>
+                                <th>website</th>
+                                <th>company</th>
+                             </tr>
+                            <tr>  
+                                <td>{{ selecteduser.name }}</td>       
+                                <td>{{ selecteduser.username }}</td>
+                                <td>{{ selecteduser.email }}</td>
+                                <td>
+                                    <div >
+                                        Street : {{ selecteduser.address.street }}
+                                    </div>
+                                    <div >
+                                        Suite : {{ selecteduser.address.suite}} 
+                                    </div>
+                                    <div >
+                                        City : {{ selecteduser.address.city }} 
+                                    </div>
+                                    <div >
+                                        Zipcode : {{ selecteduser.address.zipcode }}
+                                    </div>
+                                    <div >
+                                        Geo:
+                                            <ul>lat: {{ selecteduser.address.geo.lat }}</ul>
+                                            <ul>long: {{ selecteduser.address.geo.lat }}</ul>
+                                    </div>
+                                </td>
+                                <td>{{ selecteduser.phone }}</td>
+                                <td>{{ selecteduser.website}}</td>
+                                <td>
+                                    <div >
+                                        Name : {{ selecteduser.company.name }}
+                                    </div>
+                                    <div > 
+                                        CatchPhrase : {{ selecteduser.company.catchPhrase}}
+                                    </div>
+                                    <div >
+                                        bs : {{ selecteduser.company.catchPhrase}}
+                                    </div>
+                                </td> 
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Display Selected User's Posts Details. Buttons for selecting comments of specific posts  -->
+                    <div class="panel panel-default " ng-show="isTab(2) ">
+                        <table class="table table-striped table-bordered ">
+                            <tr>
+                                Selected Posts 
+                            </tr>
+                            <tr>
+                                <th>postid</th>
+                                <th>title</th>
+                                <th>body</th>
+                            </tr>
+                            <tr ng-repeat="post in posts ">
+                                <td>
+                                    <button  class="btn btn-default btn-sm " ng-click="commentSelect(post,3) ">{{ post.id }}</button>
+                                </td>
+                                <td>{{ post.title}}</td>
+                                <td>{{ post.body}}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Display Selcted post's details and its comments -->
+                    <div  class="panel panel-default "  ng-show="isTab(3) ">
+                        <div>
+                            <table class="table table-striped table-bordered ">
+                                <tr>
+                                    Selected Post
+                                </tr>
+                                <tr>
+                                    <th>title</th>
+                                    <th>body</th>
+                                </tr>
+                                <tr>
+                                    <td>{{ posts.title}}</td>
+                                    <td>{{ posts.body}}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div>
+                            <table class="table table-striped table-bordered ">
+                                <tr>
+                                    Selected Comments
+                                </tr>
+                                <tr>
+                                    <th>name</th>
+                                    <th>email</th>
+                                    <th>body</th>
+                                </tr>
+                                <tr ng-repeat="comment in comments ">
+                                    <td>{{ comment.name}}</td>
+                                    <td>{{ comment.email}}</td>
+                                    <td>{{ comment.body}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!--  Display selected user's album details. Provide buttons for selecting specific album's photos -->
+                    <div class="panel panel-default " ng-show="isTab(4) ">
+                      
+                        <table class="table table-striped table-bordered ">
+                            <tr>
+                                Selected Album
+                            </tr>
+                            <tr>
+                                <th>albumid</th>
+                                <th>title</th>
+                            </tr>
+                            <tr ng-repeat="album in albums ">
+                                <td>
+                                    <button class="btn btn-default btn-sm " ng-click="photoSelect(album,5) ">{{ album.id }}</button>
+                                </td>
+                                <td>{{ album.title}}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Display the selectd album details and it's photos. Show thumnails of the photos-->
+                    <div class="panel panel-default " ng-show="isTab(5) ">
+                        <div>
+                            <table class="table table-striped table-bordered ">
+                                <tr>
+                                    Selected Album
+                                </tr>
+                                <tr>
+                                    <th>title</th>
+                                </tr>
+                                <tr >
+                                    <td>{{ albums.title}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            <table class="table table-striped table-bordered ">
+                                <tr>
+                                    Selected Photos
+                                </tr>
+                                <tr>
+                                    <th>title</th>
+                                    <th> <div> photo</div>  <div> *click to enlarge </div></th>
+                                </tr>
+                                <tr ng-repeat="photo in photos ">
+                                    <td >{{ photo.title}}</td>
+                                    <td>
+                                        <a href={{photo.url}}>
+                                        <img src = {{photo.url}} ng-src={{photo.thumbnailurl}} alt={{photo.title}} height="50px " width="100px "></a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Display selected user's TODOS -->
+                    <div class="panel panel-default "  ng-show="isTab(6) ">
+                        <table class="table table-striped table-bordered ">
+                            <tr>
+                                Selected TODOS
+                            </tr>
+                            <tr>
+                              <!--   <th>userid</th> -->
+                                <th>TODOid</th>
+                                <th>title</th>
+                                <th>completed</th>
+                            </tr>
+                            <tr ng-repeat="todo in TODOS ">
+                              <!--   <td>{{ todo.userId }}</td> -->
+                                <td>{{ todo.id }}</td>
+                                <td>{{ todo.title}}</td>
+                                <td>{{ todo.completed}}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+         </div>
+
+</body>
+
+</html>

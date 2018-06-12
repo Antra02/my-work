@@ -1,0 +1,17 @@
+{
+	"11111": [
+		{"item":"Dosa", "price":"3"}, 
+		{"item":"Poha", "price":"2.5"},
+		{"item":"Aalu Paratha", "price":"5"}
+	],
+
+	"22222": [
+		{"item":"Biryani", "price":"13"},
+		{"item":"Fried rice", "price":"9"}
+	],
+
+	"333333": [
+		{"item":"Paratha", "price":"5"},
+		{"item":"No dinner", "price":"0"}
+	]
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html><html><head><style>
+div ~ p {
+	color: blue;
+    background-color: pink;
+}
+p {
+padding:0px;
+}
+span p:hover {
+	background-color: green;
+}
+#outer >div:first-child a:not(:first-child),
+#outer >div:not(:first-child) a{
+  color: red;
+  border:1px solid;
+}
+</style></head><body>
+Border all the grandchild. <br/>
+Border all the grandchild who are children of ‘child’ <br/>
+Border all the grandchild who are direct children of ‘child’<br/>
+On hover of child put border on parent.  <br/>
+--------------------
+<div class="p">fghjk
+	  <p>A</p>
+    <p>B</p>
+    <p>C</p>
+    <p class="p">para with class p</p>
+    <p>E</p>
+    <span><p onMouseover="borderParent()">HOVER ME--- para inside span</p></span>
+    <p>G</p>
+</div>
+<p>aaa</p>
+<div></div>
+<p>bbb</p>
+<span><p>yayyy</p></span>
+<p>fghjkml 1</p>
+<p>fghjkml 2</p>
+<span><p>HOVER ME--- para in span 1</p></span>
+
+<p>Outside 2</p>
+<span><p>HOVER ME--- para in span 2</p></span>
+<p>Outside last</p>
+<p>dfjngvkjabdvhjdc<span>Outside 1</span></p>
+<script>
+  function borderParent() {
+      alert("hi");
+      document.getElementsByClassname("p").body.style.border=2px;
+      
+  }
+</script>
+<p>Outside end</p>
+
+<hr/>
+<div id="outer">
+  <div id="firstParent">
+    <a>abc</a>
+    <a>def</a>
+    <a>hij</a>
+  </div>
+  <div id="secondParent">
+    <a>klm</a>
+    <a>opq</a>
+  </div>
+</div>
+</body></html>
